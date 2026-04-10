@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- The Flutter build tool requires this exact placeholder below -->
   <base href="/topgearios/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="CA Firm Tracker for Office Operations.">
+  <meta name="description" content="CA Firm Tracker">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -13,20 +14,32 @@
   <meta name="apple-mobile-web-app-title" content="CA Tracker">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
   <title>CA Tracker</title>
   <link rel="manifest" href="manifest.json">
 
-  <script>
-    // This script forces the app to use the lightweight HTML renderer for iOS compatibility
-    window.flutterConfiguration = {
-      renderer: "html"
-    };
-  </script>
+  <!-- Main Flutter bootstrapper -->
+  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.load({
+        serviceWorker: {
+          serviceWorkerVersion: null, // Forces fresh version on iPhone
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine({
+            // FORCING HTML RENDERER HERE FOR IPHONE STUCK SCREEN FIX
+            renderer: "html",
+          }).then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
